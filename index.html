@@ -14,20 +14,30 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const $root = document.querySelector("#root");
-    const Title = (
-      <h1 id="title" onMouseEnter={() => console.log("mouse entered")}>
-        Title
-      </h1>
-    );
-    const Btn = (
-      <button
-        style={{ backgroundColor: "red" }}
-        onClick={() => console.log("clicked")}
-      >
-        CLICK
-      </button>
-    );
-    const $container = React.createElement("div", null, [Title, Btn]);
-    ReactDOM.render($container, $root);
+    const Title = () => {
+      return (
+        <h1 id="title" onMouseEnter={() => console.log("mouse entered")}>
+          Title
+        </h1>
+      );
+    };
+    const Btn = () => {
+      return (
+        <button
+          style={{ backgroundColor: "red" }}
+          onClick={() => console.log("clicked")}
+        >
+          CLICK
+        </button>
+      );
+    };
+    const Container = () => {
+      return (
+        <div>
+          <Title /> <Btn />
+        </div>
+      );
+    };
+    ReactDOM.render(<Container />, $root);
   </script>
 </html>
