@@ -11,23 +11,23 @@
   </body>
   <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-  <script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
     const $root = document.querySelector("#root");
-    const $span = React.createElement(
-      "span",
-      {
-        onMouseEnter: () => console.log("mouse entered"),
-      },
-      "spaaan"
+    const Title = (
+      <h1 id="title" onMouseEnter={() => console.log("mouse entered")}>
+        Title
+      </h1>
     );
-    const $btn = React.createElement(
-      "button",
-      {
-        onClick: () => console.log("clicked!!"),
-      },
-      "Click"
+    const Btn = (
+      <button
+        style={{ backgroundColor: "red" }}
+        onClick={() => console.log("clicked")}
+      >
+        CLICK
+      </button>
     );
-    const $container = React.createElement("div", null, [$span, $btn]);
+    const $container = React.createElement("div", null, [Title, Btn]);
     ReactDOM.render($container, $root);
   </script>
 </html>
