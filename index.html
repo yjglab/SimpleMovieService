@@ -14,20 +14,19 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const $root = document.querySelector("#root");
-    let cnt = 0;
-    const render = () => {
-      ReactDOM.render(<Container />, $root);
+
+    const Container = () => {
+      const [cnt, setCnt] = React.useState(0);
+      const onClick = () => {
+        setCnt(cnt + 1);
+      };
+      return (
+        <div>
+          <h1>total: {cnt}</h1>
+          <button onClick={onClick}>click</button>
+        </div>
+      );
     };
-    const countUp = () => {
-      ++cnt;
-      render();
-    };
-    const Container = () => (
-      <div>
-        <h1>total: {cnt}</h1>
-        <button onClick={countUp}>click</button>
-      </div>
-    );
-    render();
+    ReactDOM.render(<Container />, $root);
   </script>
 </html>
