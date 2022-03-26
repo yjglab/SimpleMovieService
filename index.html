@@ -14,30 +14,20 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const $root = document.querySelector("#root");
-    const Title = () => {
-      return (
-        <h1 id="title" onMouseEnter={() => console.log("mouse entered")}>
-          Title
-        </h1>
-      );
+    let cnt = 0;
+    const render = () => {
+      ReactDOM.render(<Container />, $root);
     };
-    const Btn = () => {
-      return (
-        <button
-          style={{ backgroundColor: "red" }}
-          onClick={() => console.log("clicked")}
-        >
-          CLICK
-        </button>
-      );
+    const countUp = () => {
+      ++cnt;
+      render();
     };
-    const Container = () => {
-      return (
-        <div>
-          <Title /> <Btn />
-        </div>
-      );
-    };
-    ReactDOM.render(<Container />, $root);
+    const Container = () => (
+      <div>
+        <h1>total: {cnt}</h1>
+        <button onClick={countUp}>click</button>
+      </div>
+    );
+    render();
   </script>
 </html>
