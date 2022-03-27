@@ -14,48 +14,115 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const $root = document.querySelector("#root");
-
-    const Container = () => {
+    const Min2Hours = () => {
       const [amount, setAmount] = React.useState(0);
-      const [fliped, setFliped] = React.useState(false);
+      const [inverted, setinverted] = React.useState(false);
       const onChange = (e) => {
         setAmount(e.target.value);
       };
       const reset = () => setAmount(0);
-      const onFlip = () => {
-        setFliped((current) => !current);
+      const onInvert = () => {
+        setinverted((current) => !current);
         reset();
       };
       return (
         <div>
-          <h1>단위변환기</h1>
+          <h3>Min to Hours</h3>
           <div>
             <label htmlFor="min">분</label>
             <input
-              value={fliped ? amount * 60 : amount}
+              value={inverted ? amount * 60 : amount}
               onChange={onChange}
               className="min"
               placeholder="분"
               type="number"
-              disabled={fliped}
+              disabled={inverted}
             />
           </div>
           <div>
             <label htmlFor="hours">시</label>
             <input
-              value={fliped ? amount : amount / 60}
+              value={inverted ? amount : amount / 60}
               onChange={onChange}
               className="hours"
               placeholder="시"
               type="number"
-              disabled={!fliped}
+              disabled={!inverted}
             />
           </div>
-          <button onClick={onFlip}>바꾸기</button>
+          <button onClick={onInvert}>{inverted ? "분->시" : "시->분"}</button>
           <button onClick={reset}>리셋</button>
         </div>
       );
     };
-    ReactDOM.render(<Container />, $root);
+    const Km2Miles = () => {
+      const [dist, setDist] = React.useState(0);
+      const [inverted, setInverted] = React.useState(true);
+      const onInput = (e) => {
+        setDist(e.target.value);
+      };
+      const reset = () => {
+        setDist(0);
+      };
+      const onInvert = () => {
+        setInverted((curr) => !curr);
+        reset();
+      };
+      return (
+        <div>
+          <h3>Km to Miles</h3>
+          <div>
+            <input
+              type="number"
+              value={inverted ? dist : dist * 1.609}
+              onChange={onInput}
+              placeholder="Km"
+              disabled={!inverted}
+            />
+          </div>
+          <div>
+            <input
+              type="number"
+              value={inverted ? dist / 1.609 : dist}
+              onChange={onInput}
+              placeholder="miles"
+              disabled={inverted}
+            />
+          </div>
+          <button onClick={onInvert}>
+            {inverted ? "miles to km" : "km to miles"}
+          </button>
+          <button onClick={reset}>reset</button>
+        </div>
+      );
+    };
+    const Main = () => {
+      const [idx, setIdx] = React.useState("1");
+      const onSelect = (e) => {
+        setIdx(e.target.value);
+      };
+      const checkIdx = () => {
+        switch (idx) {
+          case "0":
+            return <Min2Hours />;
+          case "1":
+            return <Km2Miles />;
+          default:
+            return <h3>Select Converter</h3>;
+        }
+      };
+      return (
+        <div>
+          <h1>Converter</h1>
+          <select value={idx} onChange={onSelect}>
+            <option value="none">Select Converter</option>
+            <option value="0">Min - Hours</option>
+            <option value="1">Km - Miles</option>
+          </select>
+          {checkIdx()}
+        </div>
+      );
+    };
+    ReactDOM.render(<Main />, $root);
   </script>
 </html>
