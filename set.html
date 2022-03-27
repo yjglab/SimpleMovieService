@@ -16,35 +16,15 @@
     const $root = document.querySelector("#root");
 
     const Container = () => {
-      const [min, setMin] = React.useState(0);
-      const onChange = (e) => {
-        setMin(e.target.value);
+      const [cnt, setCnt] = React.useState(0);
+      const onClick = () => {
+        // setCnt(cnt + 1);
+        setCnt((prevCnt) => prevCnt + 1);
       };
-      const reset = () => setMin(0);
       return (
         <div>
-          <h1>단위변환기</h1>
-          <div>
-            <label htmlFor="min">분</label>
-            <input
-              value={min}
-              onChange={onChange}
-              className="min"
-              placeholder="분"
-              type="number"
-            />
-          </div>
-          <div>
-            <label htmlFor="hours">시</label>
-            <input
-              value={min / 60}
-              className="hours"
-              placeholder="시"
-              type="number"
-              disabled
-            />
-          </div>
-          <button onClick={reset}>리셋</button>
+          <h1>total: {cnt}</h1>
+          <button onClick={onClick}>click</button>
         </div>
       );
     };
