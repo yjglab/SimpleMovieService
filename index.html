@@ -16,34 +16,42 @@
     const $root = document.querySelector("#root");
 
     const Container = () => {
-      const [min, setMin] = React.useState(0);
+      const [amount, setAmount] = React.useState(0);
+      const [fliped, setFliped] = React.useState(false);
       const onChange = (e) => {
-        setMin(e.target.value);
+        setAmount(e.target.value);
       };
-      const reset = () => setMin(0);
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        setFliped((current) => !current);
+        reset();
+      };
       return (
         <div>
           <h1>단위변환기</h1>
           <div>
             <label htmlFor="min">분</label>
             <input
-              value={min}
+              value={fliped ? amount * 60 : amount}
               onChange={onChange}
               className="min"
               placeholder="분"
               type="number"
+              disabled={fliped}
             />
           </div>
           <div>
             <label htmlFor="hours">시</label>
             <input
-              value={min / 60}
+              value={fliped ? amount : amount / 60}
+              onChange={onChange}
               className="hours"
               placeholder="시"
               type="number"
-              disabled
+              disabled={!fliped}
             />
           </div>
+          <button onClick={onFlip}>바꾸기</button>
           <button onClick={reset}>리셋</button>
         </div>
       );
