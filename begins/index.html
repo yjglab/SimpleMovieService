@@ -11,31 +11,40 @@
   </body>
   <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
     const $root = document.querySelector("#root");
-    const Btn = ({ txt }) => {
+    const Btn = React.memo(({ txt, onClick, fontSize = 5 }) => {
       return (
         <button
+          onClick={onClick}
           style={{
             backgroundColor: "tomato",
             color: "white",
             padding: "10px 10px",
             borderRadius: 10,
+            fontSize: fontSize,
           }}
         >
           {txt}
         </button>
       );
-    };
+    });
     const ConfirmBtn = () => {
       return <button>Confirm</button>;
     };
+    Btn.propTypes = {
+      txt: PropTypes.string.isRequired,
+      fontSize: PropTypes.number,
+    };
     const Main = () => {
+      const [value, setValue] = React.useState("save");
+      const changeValue = () => setValue("revert");
       return (
         <div>
           <h1></h1>
-          <Btn txt="Save" />
+          <Btn txt={value} onClick={changeValue} fontSize={18} />
           <Btn txt="Confirm" />
         </div>
       );
